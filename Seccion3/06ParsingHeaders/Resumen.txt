@@ -1,0 +1,29 @@
+queryString son las variables que pasamos de forma visible en el navegador :
+      http://localhost:3000/ruta01?vlc_oculta=valorOculto
+
+
+Los encabezados son un objeto "headers" que todos los navegadores envian
+
+  Encabezado construido con la App: POSTMAN
+
+  http://localhost:3000/
+  y en la seccion de headers pasamos varias variables en su formato key=valor
+
+ recibido con Node.js
+
+HEADERS
+{
+  foo: 'bar',
+  fizz             : 'buzz',
+  vs_ciudad        : 'Veracruz',
+  frutas           : 'Manzanas',
+  animales         : 'Leones',
+  'cache-control'  : 'no-cache',
+  'postman-token'  : '9b820d59-958e-484d-91a3-8af4415fd894',
+  'user-agent'     : 'PostmanRuntime/7.3.0',
+  accept           : '*/*',
+  host             : 'localhost:3000',
+  'accept-encoding': 'gzip, deflate',
+  connection       : 'keep-alive'
+}
+
