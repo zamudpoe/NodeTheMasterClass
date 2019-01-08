@@ -96,7 +96,10 @@ app.bindLogoutButton = function(){
 };
 
 // Log the user out then redirect them
-app.logUserOut = function(){
+app.logUserOut = function(redirectUser){
+  // Set redirectUser to default to true
+  redirectUser = typeof(redirectUser) == 'boolean' ? redirectUser : true;
+
   // Get the current token id
   var tokenId = typeof(app.config.sessionToken.id) == 'string' ? app.config.sessionToken.id : false;
 
@@ -109,7 +112,9 @@ app.logUserOut = function(){
     app.setSessionToken(false);
 
     // Send the user to the logged out page
-    window.location = '/session/deleted';
+    if(redirectUser){
+      window.location = '/session/deleted';
+    }
 
   });
 };
@@ -152,8 +157,11 @@ app.bindForms = function(){
           }
         }
 
+        // If the method is DELETE, the payload should be a queryStringObject instead
+        var queryStringObject = method == 'DELETE' ? payload : {};
+
         // Call the API
-        app.client.request(undefined,path,method,undefined,payload,function(statusCode,responsePayload){
+        app.client.request(undefined,path,method, queryStringObject,payload,function(statusCode,responsePayload){
           // Display an error on the form if needed
           if(statusCode !== 200){
 
@@ -184,19 +192,19 @@ app.bindForms = function(){
 };
 
 // Form response processor
-app.formResponseProcessor = function(formId,requestPayload,responsePayload){
+app.formResponseProcessor = function(formId, requestPayload, responsePayload){
   var functionToCall = false;
   // If account creation was successful, try to immediately log the user in
   if(formId == 'accountCreate'){
     // Take the phone and password, and use it to log the user in
     var newPayload = {
-      'phone' : requestPayload.phone,
-      'password' : requestPayload.password
-    };
+      'phone'   : requestPayload.phone,
+      'password': requestPayload.password
+    }
 
-    app.client.request(undefined,'api/tokens','POST',undefined,newPayload,function(newStatusCode,newResponsePayload){
+    app.client.request(undefined, 'api/tokens', 'POST', undefined, newPayload, function (newStatusCode, newResponsePayload) {
       // Display an error on the form if needed
-      if(newStatusCode !== 200){
+      if (newStatusCode !== 200) {
 
         // Set the formError field with the error text
         document.querySelector("#"+formId+" .formError").innerHTML = 'Sorry, an error has occured. Please try again.';
@@ -212,15 +220,21 @@ app.formResponseProcessor = function(formId,requestPayload,responsePayload){
     });
   }
   // If login was successful, set the token in localstorage and redirect the user
-  if(formId == 'sessionCreate'){
-    app.setSessionToken(responsePayload);
-    window.location = '/checks/all';
+  if (formId == 'sessionCreate') {
+    app.setSessionToken(responsePayload)
+    window.location = '/checks/all'
   }
 
   // If forms saved successfully and they have success messages, show them
   var formsWithSuccessMessages = ['accountEdit1', 'accountEdit2'];
   if (formsWithSuccessMessages.indexOf(formId) > -1) {
-    document.querySelector("#"+formId+" .formSuccess").style.display = 'block';
+    document.querySelector("#"+formId+" .formSuccess").style.display = 'block'
+  }
+
+  // If the user just deleted their account, redirect them to the account-delete page
+  if (formId == 'accountEdit3') {
+    app.logUserOut(false)
+    window.location = '/account/deleted'
   }
 
 }
