@@ -5,3 +5,5 @@
 .Trashes
 # Archivos json
 *.json
+# Archivos log
+*.log
