@@ -1,0 +1,13 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Trashes
+# Archivos json
+./.data/checks/*.json
+./.data/tokens/*.json
+./.data/users/*.json
+# Archivos logs
+./.data/.logs/*.log
+
+
