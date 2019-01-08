@@ -11,7 +11,7 @@ var path          = require('path')
 var util          = require('util')
 var debug         = util.debuglog('server')
 
-console.log("\n\t: : : : : : : : :  2 0  L O G G I N G   T O   T H E  C O N S O L E  : : : : : : : : :\n")
+console.log("\n\t: : : : : : : : :  PAGE 3 - Create A Session  : : : : : : : : :\n")
 
 // Instantiate the server module object
 var server = {}
@@ -170,7 +170,7 @@ server.router = {
   'testing'         : handlers.testing ,           // Testing
   'api/users'       : handlers.users ,             // api/users
   'api/tokens'      : handlers.tokens ,            // api/tokens
-  'api/checks'      : handlers.checks ,              // api/checks
+  'api/checks'      : handlers.checks ,            // api/checks
   'favicon.ico'     : handlers.favicon ,
   'public'          : handlers.public
 }

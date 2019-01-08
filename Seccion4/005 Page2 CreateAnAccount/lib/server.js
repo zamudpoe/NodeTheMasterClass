@@ -11,7 +11,7 @@ var path          = require('path')
 var util          = require('util')
 var debug         = util.debuglog('server')
 
-console.log("\n\t: : : : : : : : :  2 0  L O G G I N G   T O   T H E  C O N S O L E  : : : : : : : : :\n")
+console.log("\n\t: : : : : : : : :  Page 2 - Create An Account  : : : : : : : : :\n")
 
 // Instantiate the server module object
 var server = {}
