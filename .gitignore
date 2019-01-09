@@ -7,3 +7,5 @@
 *.json
 # Archivos log
 *.log
+# archivos comprimidos
+*.gz.b64
