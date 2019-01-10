@@ -1,23 +1,23 @@
 // Dependencies
-var http            = require('http')
-var https           = require('https')
-var url             = require('url')
-var StringDecoder   = require('string_decoder').StringDecoder
-var config          = require('./config')
-var fs              = require('fs')
-var genericHelper   = require('./helpers/generic')
+var http                = require('http')
+var https               = require('https')
+var url                 = require('url')
+var StringDecoder       = require('string_decoder').StringDecoder
+var config              = require('./config')
+var fs                  = require('fs')
+var genericHelper       = require('./helpers/generic')
 
 // HANDLERS
-var userHandler          = require('./handlers/user')
-var accountHandler       = require('./handlers/account')
-var menuHandler          = require('./handlers/menu')
-var shoppingCartHandler  = require('./handlers/shoppingCart')
-var orderHandler         = require('./handlers/order')
-var checkoutHandler      = require('./handlers/checkout')
+var userHandler         = require('./handlers/user')
+var accountHandler      = require('./handlers/account')
+var menuHandler         = require('./handlers/menu')
+var shoppingCartHandler = require('./handlers/shoppingCart')
+var orderHandler        = require('./handlers/order')
+var checkoutHandler     = require('./handlers/checkout')
 
-var path  = require('path')
-var util  = require('util')
-var debug = util.debuglog('server')
+var path                = require('path')
+var util                = require('util')
+var debug               = util.debuglog('server')
 
 // Instantiate the server module object
 var server = {}
@@ -116,6 +116,7 @@ server.router = {
   'order'        : orderHandler.order,
   'checkout'     : checkoutHandler.checkout
 }
+
 
 // Init script
 server.init = function () {

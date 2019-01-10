@@ -38,7 +38,7 @@ userHandler._users = {};
     "active"       : true
   }
 */
-userHandler._users.post = function(data, callback){
+userHandler._users.post = function (data, callback){
   // Check that all required felds are filled out (and in case of emaiLAddress let's just check that contains the character '@')
   var name          = typeof(data.payload.name) == 'string' && data.payload.name.trim().length > 0 ? data.payload.name.trim() : false;
   var emailAddress  = typeof(data.payload.emailAddress) == 'string' && data.payload.emailAddress.trim().length > 0 && data.payload.emailAddress.indexOf('@') > -1 ? data.payload.emailAddress.trim() : false;
@@ -73,7 +73,7 @@ userHandler._users.post = function(data, callback){
 
               // Store the user
               _data.create('users', userIdentifier, userObject, function(err){
-                  if(!err){
+                  if (!err) {
                     callback(200)
                   } else {
                     console.log(err)
@@ -97,20 +97,20 @@ userHandler._users.post = function(data, callback){
     callback(400, {'Error' : 'Missing required fields'})
   }
 
-};
+}
 
 // Users - get
 // Required data: useridentifier
 // Optional data: none
-userHandler._users.get = function(data, callback){
+userHandler._users.get = function (data, callback) {
   // Check that the id is valid
   var id = typeof(data.queryStringObject.id) == 'string' && data.queryStringObject.id.trim().length > 0 ? data.queryStringObject.id.trim() : false;
-  if(id){
+  if (id) {
       // Get the token from the headers
-      var token = typeof(data.headers.token) == 'string' ? data.headers.token : false;
+      var token = typeof (data.headers.token) == 'string' ? data.headers.token : false
       // Verify that the given token is valid for the phone number
-      tokenHelper.verifyToken(token, id, function(tokenIsValid){
-        if(tokenIsValid){
+      tokenHelper.verifyToken(token, id, function (tokenIsValid) {
+        if (tokenIsValid) {
           //Lookup the user
           _data.read('users', id, function(err,data){
             if(!err && data){
