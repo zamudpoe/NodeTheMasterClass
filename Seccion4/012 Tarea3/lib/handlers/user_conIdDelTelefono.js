@@ -1,24 +1,22 @@
 /*
- * Specific handler for users
- *
- */
+*** JSON API Handlers for users
+*/
 
 // Dependencies
-var _data         = require('../data');
-var genericHelper = require('../helpers/generic');
-/* var config        = require('../config'); */
-var tokenHelper   = require('../helpers/token');
+var _data         = require('../data')
+var genericHelper = require('../helpers/generic')
+var tokenHelper   = require('../helpers/token')
 
 // Define the userHandler
-var userHandler = {};
+var userHandler   = {}
 
 // Users
-userHandler.users = function(data, callback){
-  var acceptableMethods = ['post','get','put','delete'];
-  if(acceptableMethods.indexOf(data.method) > -1) {
+userHandler.users = function (data, callback) {
+  var acceptableMethods = ['post','get','put','delete']
+  if (acceptableMethods.indexOf(data.method) > -1) {
     userHandler._users[data.method](data,callback)
   } else {
-    callback(405)
+    callback (405)
   }
 }
 
@@ -38,8 +36,7 @@ userHandler._users = {};
     "active"       : true
   }
 */
-
-userHandler._users.post = function (data, callback) {
+userHandler._users.post = function (data, callback){
   // Check that all required felds are filled out (and in case of emaiLAddress let's just check that contains the character '@')
   var name          = typeof(data.payload.name) == 'string' && data.payload.name.trim().length > 0 ? data.payload.name.trim() : false;
   var emailAddress  = typeof(data.payload.emailAddress) == 'string' && data.payload.emailAddress.trim().length > 0 && data.payload.emailAddress.indexOf('@') > -1 ? data.payload.emailAddress.trim() : false;
@@ -50,13 +47,13 @@ userHandler._users.post = function (data, callback) {
       // Let's create the variable that defines our unique id for user.
       var userIdentifier = genericHelper.hash(emailAddress)
 
-/*       console.log(emailAddress) */
+      console.log(emailAddress)
 
       if (userIdentifier) {
         // Make sure that the user doesnt already exist
         _data.read('users', userIdentifier, function (err, data){
           if (err) {
-            console.log('Intentando crear registro de usuario: %s', name)
+            console.log('Creando registro de usuario: %s', name)
             // Hash the password
             var hashedPassword = genericHelper.hash(password);
 
@@ -75,11 +72,10 @@ userHandler._users.post = function (data, callback) {
               // Store the user
               _data.create('users', userIdentifier, userObject, function (err) {
                   if (!err) {
-                    console.log('Creacion de registro de usuario: %s EXITOSA!', name)
                     callback(200)
                   } else {
-                    console.log('err: ', err)
-                    callback(500, {'Error' : 'A user with that emaiL address already exists, or data directory not exist!, please try again.'})
+                    console.log(err)
+                    callback (500, {'Error' : 'A user with that emaiL address already exists, please try again.'})
                   }
               })
             } else {

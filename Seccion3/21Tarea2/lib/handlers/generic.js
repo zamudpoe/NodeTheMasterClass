@@ -1,14 +1,13 @@
 /*
  * Generic handler
- *
- */
+*/
 
-var handlers = {};
+var handlers = {}
 
-// Not found handler
-handlers.notFound = function(data, callback){
-  callback(404);
-};
+// Not Found Handler
+handlers.notFound = function (data, callback) {
+  callback(404, {'Error': 'Resource Not Found '})
+}
 
 // Export the module
-module.exports = handlers;
+module.exports = handlers

@@ -1,0 +1,92 @@
+
+<!-- saved from url=(0038)http://localhost:3000/shoppingcartList -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <!-- General Settings -->
+    
+    <meta http-equiv="content-language" content="en-us">
+    <!--<base href="http://localhost:3000/">--><base href=".">
+
+    <!-- Meta Tags -->
+    <title>Shopping Cart | Pizzas Feliantoni</title>
+    <meta name="description" content="{head.description}">
+
+    <!-- Static Assets -->
+    <link type="image/x-icon" rel="icon" href="http://localhost:3000/favicon.ico">
+    <script type="text/javascript" charset="utf-8" src="./Shopping Cart _ Pizzas Feliantoni_files/app.js"></script>
+    <link rel="stylesheet" type="text/css" href="./Shopping Cart _ Pizzas Feliantoni_files/app.css">
+
+  </head>
+  <body class="shoppingCart loggedIn">
+    <!-- Page Wrapper -->
+    <div class="wrapper">
+      <!-- Header -->
+      <div class="header">
+        <!-- Logo -->
+        <a class="logo" href="http://localhost:3000/">
+          <img src="./Shopping Cart _ Pizzas Feliantoni_files/logo.png" alt="Logo">
+        </a>
+        <!-- Navigation -->
+        <ul class="menu">
+          <li>
+            <a href="http://localhost:3000/">Home</a>
+          </li>
+          <li>
+            <a href="http://localhost:3000/menuList">Menu</a>
+          </li>
+          <li class="loggedOut">
+            <a href="http://localhost:3000/account/create">Signup</a>
+          </li>
+          <li class="loggedOut">
+            <a href="http://localhost:3000/session/create">Login</a>
+          </li>
+          <li class="loggedIn">
+            <a href="http://localhost:3000/checks/all">Dashboard</a>
+          </li>
+          <li class="loggedIn">
+            <a href="http://localhost:3000/shoppingcartList">Shopping Cart</a>
+          </li>
+          <li class="loggedIn">
+            <a href="http://localhost:3000/account/edit">Account Settings</a>
+          </li>
+          <li class="loggedIn">
+            <a href="http://localhost:3000/#" id="logoutButton">Logout</a>
+          </li>
+        </ul>
+
+        <div class="clear"></div>
+      </div>
+
+      <!-- Page-Specific Content -->
+      <div class="content">
+<h1>Shopping Cart</h1>
+<h2>Lista de Articulos</h2>
+<hr>
+
+<table id="orderListTable">
+  <tbody><tr>
+    <th>#</th>
+    <th>Especialidad</th>
+    <th>Ingredientes</th>
+    <th>Cant</th>
+    <th>Precio</th>
+  </tr>
+  <tr id="noChecksMessage">
+    <td colspan="5">You have no pizzas, please order one!</td>
+  </tr>
+
+</tbody></table>
+
+<div id="createOrder" class="ctaWrapper">
+  <a class="cta green" href="http://localhost:3000/order">Create Your Order!</a>
+</div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <div class="copyright">Copyright 1985 Pizzas Feliantoni, Inc. | All Rights Reserved</div>
+      </div>
+    </div>
+  
+
+</body></html>

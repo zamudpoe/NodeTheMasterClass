@@ -4,12 +4,12 @@
  */
 
 // Dependencies
-var config = require('./config');
-var crypto = require('crypto');
-var https = require('https');
+var config      = require('./config');
+var crypto      = require('crypto');
+var https       = require('https');
 var querystring = require('querystring');
-var path = require('path');
-var fs = require('fs');
+var path        = require('path');
+var fs          = require('fs');
 
 // Container for all the helpers
 var helpers = {};

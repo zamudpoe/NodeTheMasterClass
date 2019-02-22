@@ -39,10 +39,10 @@
              var menuItems = [];
              fileNames.forEach(function(fileName){
                _data.read('menuitems', fileName, function(err, menuItemData){
-                  if(!err && menuItemData){
+                  if (!err && menuItemData) {
                     menuItems.push(menuItemData);
-                    if(menuItems.length == fileNames.length){
-                      callback(200, menuItems);
+                    if (menuItems.length == fileNames.length) {
+                      callback(200, menuItems)
                     }
                   } else {
                       callback(500, {'Error': 'There was a error reading a single menu item.'});

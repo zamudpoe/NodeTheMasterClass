@@ -296,13 +296,13 @@ Now the user object has the item "feliantoni" in the shopping cart
 
 ```json
 {
-    "id"            : "75a136d679b5b6c2166f11e445640bf04aab8ba7c99acaaa732c318537372d38",
-    "name"          : "Full Name",
-    "emailAddress"  : "email@domain.com",
-    "streetAddress" : "The full street address",
+    "id": "75a136d679b5b6c2166f11e445640bf04aab8ba7c99acaaa732c318537372d38",
+    "name": "Full Name",
+    "emailAddress": "email@domain.com",
+    "streetAddress": "The full street address",
     "hashedPassword": "80384349460bb25e591b4a99dd76baa62f0bc6b990e226704716625b26c93504",
-    "orders"        : [],
-    "shoppingcart"  : [
+    "orders": [],
+    "shoppingcart": [
         "feliantoni"
     ]
 }

@@ -1,6 +1,6 @@
-/**
-**** Specific handler for shopping shopping_cart actions
-**/
+/*
+*** JSON API Handlers for shopping shopping_cart actions
+*/
 
 // Dependencies
 var _data       = require('../data');
@@ -13,7 +13,7 @@ var shoppingCartHandler = {}
 shoppingCartHandler.shopping_cart = function (data, callback) {
   var acceptableMethods = ['get','put','delete']
   if (acceptableMethods.indexOf(data.method) > -1) {
-    shoppingCartHandler._shopping_cart[data.method](data, callback)
+    shoppingCartHandler._shopping_cart[data.method](data,callback)
   } else {
     callback (405)
   }
@@ -23,20 +23,20 @@ shoppingCartHandler.shopping_cart = function (data, callback) {
 shoppingCartHandler._shopping_cart = {}
 
 // shopping_cart - get
-// Required data on header : token, userIdentifier
-// Optional data           : none
+// Required data on header: token, userIdentifier
+// Optional data          : none
 shoppingCartHandler._shopping_cart.get = function (data, callback) {
   // Get tokenId and userIdentifier from header
-  var token          = typeof (data.headers.token)  == 'string' ? data.headers.token  : false
-  var userIdentifier = typeof (data.headers.userid) == 'string' ? data.headers.userid : false
+  var token          = typeof(data.headers.token)  == 'string' ? data.headers.token  : false
+  var userIdentifier = typeof(data.headers.userid) == 'string' ? data.headers.userid : false
 
   if (token && userIdentifier) {
     // Verify that the token is valid for the given user
-    tokenHelper.verifyToken(token, userIdentifier, function ( tokenIsValid ) {
-      if ( tokenIsValid ) {
+    tokenHelper.verifyToken(token, userIdentifier, function (tokenIsValid) {
+      if (tokenIsValid) {
         _data.read('users', userIdentifier, function (err, data) {
           if (!err && data) {
-            var currentshopping_cart = typeof (data.shoppingcart) == 'object' && data.shoppingcart.length > 0 ? data.shoppingcart : {"shoppingcart": "Carrito Vacio para el usuario " + userIdentifier}
+            var currentshopping_cart = typeof (data.shoppingcart) == 'object' && data.shoppingcart.length > 0 ? data.shoppingcart : {"shoppingcart":  false}
             callback (200, currentshopping_cart)
           } else {
             callback (500, {'Error': 'There was an error getting the shopping cart of the user'})
@@ -56,31 +56,31 @@ shoppingCartHandler._shopping_cart.get = function (data, callback) {
 // Optional data: none
 shoppingCartHandler._shopping_cart.put = function (data, callback) {
   // Get tokenId and userIdentifier from header
-  var token          = typeof (data.headers.token)  == 'string' ? data.headers.token  : false
-  var userIdentifier = typeof (data.headers.userid) == 'string' ? data.headers.userid : false
+  var token          = typeof(data.headers.token) == 'string' ? data.headers.token : false
+  var userIdentifier = typeof(data.headers.userid) == 'string' ? data.headers.userid : false
 
   if (token && userIdentifier) {
     // Verify that the token is valid for the given user
     tokenHelper.verifyToken(token, userIdentifier, function(tokenIsValid){
       if (tokenIsValid) {
-        _data.list('menuitems', function (err, fileNames) {
+        _data.list('menuitems', function(err, fileNames) {
           if (!err && fileNames && fileNames.length > 0){
             var menuItemNameToAdd = typeof(data.payload.item) == 'string' && data.payload.item.trim().length > 0 && fileNames.indexOf(data.payload.item.trim()) > -1 ? data.payload.item.trim() : false
 
-            if (menuItemNameToAdd) {
+            if (menuItemNameToAdd){
               // Lookup the user
-              _data.read('users', userIdentifier, function (err, userData){
-                if (!err && userData) {
+              _data.read('users', userIdentifier, function(err, userData){
+                if(!err && userData){
                   // Update the fields necessary
-                  if (userData.shoppingcart) {
+                  if(userData.shoppingcart){
                     userData.shoppingcart.push(menuItemNameToAdd)
-                  } else {
+                  } else{
                     userData.shoppingcart = []
                     userData.shoppingcart.push(menuItemNameToAdd)
                   }
                   // Store the new updates
-                  _data.update('users', userIdentifier, userData, function (err) {
-                    if (!err) {
+                  _data.update('users', userIdentifier, userData, function(err){
+                    if(!err){
                       callback(200, userData)
                     } else {
                       console.log(err)
@@ -110,7 +110,7 @@ shoppingCartHandler._shopping_cart.put = function (data, callback) {
 // shopping_cart - delete
 // Required data: token y userid
 // Optional data: none
-shoppingCartHandler._shopping_cart.delete = function (data, callback) {
+shoppingCartHandler._shopping_cart.delete = function (data, callback){
   // Get tokenId and userIdentifier from header
   var token          = typeof(data.headers.token) == 'string' ? data.headers.token : false
   var userIdentifier = typeof(data.headers.userid) == 'string' ? data.headers.userid : false

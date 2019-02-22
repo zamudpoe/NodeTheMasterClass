@@ -121,10 +121,10 @@ app.logUserOut = function(redirectUser){
 
 // Bind the forms
 app.bindForms = function(){
-  if(document.querySelector("form")){
+  if (document.querySelector("form")){
 
     var allForms = document.querySelectorAll("form");
-    for(var i = 0; i < allForms.length; i++){
+    for (var i = 0; i < allForms.length; i++){
         allForms[i].addEventListener("submit", function(e){
 
         // Stop it from submitting
@@ -140,7 +140,6 @@ app.bindForms = function(){
         if(document.querySelector("#"+formId+" .formSuccess")){
           document.querySelector("#"+formId+" .formSuccess").style.display = 'none';
         }
-
 
         // Turn the inputs into a payload
         var payload = {};
@@ -177,7 +176,6 @@ app.bindForms = function(){
             }
           }
         }
-
 
         // If the method is DELETE, the payload should be a queryStringObject instead
         var queryStringObject = method == 'DELETE' ? payload : {};
@@ -372,8 +370,9 @@ app.loadDataOnPage = function(){
 // Load the account edit page specifically
 app.loadAccountEditPage = function(){
   // Get the phone number from the current token, or log the user out if none is there
-  var phone = typeof(app.config.sessionToken.phone) == 'string' ? app.config.sessionToken.phone : false;
-  if(phone){
+  var phone = typeof(app.config.sessionToken.phone) == 'string' ? app.config.sessionToken.phone : false
+
+  if (phone) {
     // Fetch the user data
     var queryStringObject = {
       'phone' : phone
@@ -387,7 +386,7 @@ app.loadAccountEditPage = function(){
 
         // Put the hidden phone field into both forms
         var hiddenPhoneInputs = document.querySelectorAll("input.hiddenPhoneNumberInput");
-        for(var i = 0; i < hiddenPhoneInputs.length; i++){
+        for (var i = 0; i < hiddenPhoneInputs.length; i++){
             hiddenPhoneInputs[i].value = responsePayload.phone;
         }
 
@@ -405,7 +404,7 @@ app.loadAccountEditPage = function(){
 app.loadChecksListPage = function(){
   // Get the phone number from the current token, or log the user out if none is there
   var phone = typeof(app.config.sessionToken.phone) == 'string' ? app.config.sessionToken.phone : false;
-  if(phone){
+  if (phone){
     // Fetch the user data
     var queryStringObject = {
       'phone' : phone

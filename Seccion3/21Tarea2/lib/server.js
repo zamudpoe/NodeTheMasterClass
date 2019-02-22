@@ -14,6 +14,7 @@ var menuHandler         = require('./handlers/menu')
 var shoppingCartHandler = require('./handlers/shoppingCart')
 var orderHandler        = require('./handlers/order')
 var checkoutHandler     = require('./handlers/checkout')
+var notFoundHandler     = require('./handlers/generic')
 
 var path                = require('path')
 var util                = require('util')
@@ -67,7 +68,7 @@ server.unifiedServer = function (req, res) {
     buffer += decoder.end()
 
     // Choose the handler this request should go to. If one is not found, use the notFound handler.
-    var chosenHandler = typeof (server.router[trimmedPath]) !== 'undefined' ? server.router[trimmedPath] : handler.notFound
+    var chosenHandler = typeof (server.router[trimmedPath]) !== 'undefined' ? server.router[trimmedPath] : notFoundHandler.notFound
 
     // Construct the data object to send to the handler
     var data = {

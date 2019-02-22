@@ -12,23 +12,23 @@ var config = require('./config');
 var handlers = {};
 
 /*
- * HTML Handlers
- *
- */
+** HTML Handlers
+*/
 
 // Index
-handlers.index = function(data,callback){
+handlers.index = function (data, callback) {
   // Reject any request that isn't a GET
-  if(data.method == 'get'){
+  if (data.method == 'get') {
     // Prepare data for interpolation
     var templateData = {
-      'head.title' : 'Uptime Monitoring - Made Simple',
-      'head.description' : 'We offer free, simple uptime monitoring for HTTP/HTTPS sites all kinds. When your site goes down, we\'ll send you a text to let you know',
-      'body.class' : 'index'
-    };
+      'head.title'      : 'Uptime Monitoring - Made Simple',
+      'head.description': 'We offer free, simple uptime monitoring for HTTP/HTTPS sites all kinds. When your site goes down, we\'ll send you a text to let you know',
+      'body.class'      : 'index'
+    }
+
     // Read in a template as a string
     helpers.getTemplate('index',templateData,function(err,str){
-      if(!err && str){
+      if (!err && str) {
         // Add the universal header and footer
         helpers.addUniversalTemplates(str,templateData,function(err,str){
           if(!err && str){
@@ -45,38 +45,39 @@ handlers.index = function(data,callback){
   } else {
     callback(405,undefined,'html');
   }
-};
+
+}
 
 // Create Account
-handlers.accountCreate = function(data,callback){
+handlers.accountCreate = function (data, callback) {
   // Reject any request that isn't a GET
-  if(data.method == 'get'){
+  if (data.method == 'get') {
     // Prepare data for interpolation
     var templateData = {
-      'head.title' : 'Create an Account',
-      'head.description' : 'Signup is easy and only takes a few seconds.',
-      'body.class' : 'accountCreate'
-    };
+      'head.title'      : 'Create an Account',
+      'head.description': 'Signup is easy and only takes a few seconds.',
+      'body.class'      : 'accountCreate'
+    }
     // Read in a template as a string
-    helpers.getTemplate('accountCreate',templateData,function(err,str){
-      if(!err && str){
+    helpers.getTemplate('accountCreate', templateData, function (err, str) {
+      if (!err && str) {
         // Add the universal header and footer
-        helpers.addUniversalTemplates(str,templateData,function(err,str){
-          if(!err && str){
+        helpers.addUniversalTemplates(str, templateData, function (err, str) {
+          if (!err && str){
             // Return that page as HTML
-            callback(200,str,'html');
+            callback (200, str, 'html')
           } else {
-            callback(500,undefined,'html');
+            callback (500, undefined, 'html')
           }
-        });
+        })
       } else {
-        callback(500,undefined,'html');
+        callback (500, undefined, 'html')
       }
-    });
+    })
   } else {
-    callback(405,undefined,'html');
+    callback (405, undefined, 'html')
   }
-};
+}
 
 // Create New Session
 handlers.sessionCreate = function(data,callback){
@@ -214,8 +215,8 @@ handlers.checksCreate = function(data,callback){
     helpers.getTemplate('checksCreate',templateData,function(err,str){
       if(!err && str){
         // Add the universal header and footer
-        helpers.addUniversalTemplates(str,templateData,function(err,str){
-          if(!err && str){
+        helpers.addUniversalTemplates(str, templateData, function(err,str){
+          if(!err && str) {
             // Return that page as HTML
             callback(200,str,'html');
           } else {
@@ -229,7 +230,7 @@ handlers.checksCreate = function(data,callback){
   } else {
     callback(405,undefined,'html');
   }
-};
+}
 
 // Dashboard (view all checks)
 handlers.checksList = function(data,callback){
@@ -294,10 +295,10 @@ handlers.checksEdit = function (data, callback) {
 // Favicon
 handlers.favicon = function(data,callback){
   // Reject any request that isn't a GET
-  if(data.method == 'get'){
+  if (data.method == 'get'){
     // Read in the favicon's data
-    helpers.getStaticAsset('favicon.ico',function(err,data){
-      if(!err && data){
+    helpers.getStaticAsset('favicon.ico',function(err, data){
+      if (!err && data) {
         // Callback the data
         callback(200,data,'favicon');
       } else {
@@ -310,7 +311,7 @@ handlers.favicon = function(data,callback){
 };
 
 // Public assets
-handlers.public = function(data,callback){
+handlers.public = function (data, callback){
   // Reject any request that isn't a GET
   if(data.method == 'get'){
     // Get the filename being requested
@@ -356,12 +357,11 @@ handlers.public = function(data,callback){
 
 /*
  * JSON API Handlers
- *
- */
+*/
 
 // Ping
 handlers.ping = function(data,callback){
-    callback(200);
+  callback(200);
 };
 
 // Not-Found
@@ -387,15 +387,15 @@ handlers._users  = {};
 // Optional data: none
 handlers._users.post = function(data,callback){
   // Check that all required fields are filled out
-  var firstName = typeof(data.payload.firstName) == 'string' && data.payload.firstName.trim().length > 0 ? data.payload.firstName.trim() : false;
-  var lastName = typeof(data.payload.lastName) == 'string' && data.payload.lastName.trim().length > 0 ? data.payload.lastName.trim() : false;
-  var phone = typeof(data.payload.phone) == 'string' && data.payload.phone.trim().length == 10 ? data.payload.phone.trim() : false;
-  var password = typeof(data.payload.password) == 'string' && data.payload.password.trim().length > 0 ? data.payload.password.trim() : false;
+  var firstName    = typeof(data.payload.firstName) == 'string' && data.payload.firstName.trim().length > 0 ? data.payload.firstName.trim() : false;
+  var lastName     = typeof(data.payload.lastName) == 'string' && data.payload.lastName.trim().length > 0 ? data.payload.lastName.trim() : false;
+  var phone        = typeof(data.payload.phone) == 'string' && data.payload.phone.trim().length == 10 ? data.payload.phone.trim() : false;
+  var password     = typeof(data.payload.password) == 'string' && data.payload.password.trim().length > 0 ? data.payload.password.trim() : false;
   var tosAgreement = typeof(data.payload.tosAgreement) == 'boolean' && data.payload.tosAgreement == true ? true : false;
 
-  if(firstName && lastName && phone && password && tosAgreement){
+  if (firstName && lastName && phone && password && tosAgreement){
     // Make sure the user doesnt already exist
-    _data.read('users',phone,function(err,data){
+    _data.read('users', phone, function (err, data){
       if(err){
         // Hash the password
         var hashedPassword = helpers.hash(password);
@@ -403,15 +403,15 @@ handlers._users.post = function(data,callback){
         // Create the user object
         if(hashedPassword){
           var userObject = {
-            'firstName' : firstName,
-            'lastName' : lastName,
-            'phone' : phone,
-            'hashedPassword' : hashedPassword,
-            'tosAgreement' : true
-          };
+            'firstName'     : firstName,
+            'lastName'      : lastName,
+            'phone'         : phone,
+            'hashedPassword': hashedPassword,
+            'tosAgreement'  : true
+          }
 
           // Store the user
-          _data.create('users',phone,userObject,function(err){
+          _data.create('users',phone, userObject, function(err) {
             if(!err){
               callback(200);
             } else {
@@ -432,7 +432,7 @@ handlers._users.post = function(data,callback){
     callback(400,{'Error' : 'Missing required fields'});
   }
 
-};
+}
 
 // Required data: phone
 // Optional data: none
@@ -475,6 +475,9 @@ handlers._users.put = function(data,callback){
   var firstName = typeof(data.payload.firstName) == 'string' && data.payload.firstName.trim().length > 0 ? data.payload.firstName.trim() : false;
   var lastName = typeof(data.payload.lastName) == 'string' && data.payload.lastName.trim().length > 0 ? data.payload.lastName.trim() : false;
   var password = typeof(data.payload.password) == 'string' && data.payload.password.trim().length > 0 ? data.payload.password.trim() : false;
+
+
+
 
   // Error if phone is invalid
   if(phone){
@@ -531,8 +534,8 @@ handlers._users.put = function(data,callback){
 handlers._users.delete = function(data,callback){
   // Check that phone number is valid
   var phone = typeof(data.queryStringObject.phone) == 'string' && data.queryStringObject.phone.trim().length == 10 ? data.queryStringObject.phone.trim() : false;
-  if(phone){
 
+  if(phone){
     // Get token from headers
     var token = typeof(data.headers.token) == 'string' ? data.headers.token : false;
 
@@ -755,7 +758,6 @@ handlers.checks = function(data,callback){
 // Container for all the checks methods
 handlers._checks  = {};
 
-
 // Checks - post
 // Required data: protocol,url,method,successCodes,timeoutSeconds
 // Optional data: none
@@ -847,7 +849,7 @@ handlers._checks.get = function(data,callback){
   var id = typeof(data.queryStringObject.id) == 'string' && data.queryStringObject.id.trim().length == 20 ? data.queryStringObject.id.trim() : false;
   if(id){
     // Lookup the check
-    _data.read('checks',id,function(err,checkData){
+    _data.read('checks',id, function(err,checkData){
       if(!err && checkData){
         // Get the token that sent the request
         var token = typeof(data.headers.token) == 'string' ? data.headers.token : false;
@@ -867,7 +869,7 @@ handlers._checks.get = function(data,callback){
   } else {
     callback(400,{'Error' : 'Missing required field, or field invalid'})
   }
-};
+}
 
 // Checks - put
 // Required data: id
@@ -934,8 +936,7 @@ handlers._checks.put = function(data,callback){
   } else {
     callback(400,{'Error' : 'Missing required field.'});
   }
-};
-
+}
 
 // Checks - delete
 // Required data: id
@@ -996,8 +997,7 @@ handlers._checks.delete = function(data,callback){
   } else {
     callback(400,{"Error" : "Missing valid id"});
   }
-};
-
+}
 
 // Export the handlers
-module.exports = handlers;
+module.exports = handlers
