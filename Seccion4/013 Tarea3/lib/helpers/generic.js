@@ -121,7 +121,8 @@ helpers.sendTwilioSms = function(phone, msg, callback){
 
 helpers.sendRequest = function (protocol, port, hostname, method, path, contentType, auth, timeoutSeconds, postData, callback) {
   var stringPayload = querystring.stringify(postData)
-
+debugger
+console.log("postData ", postData)
   // Construct the request
   var requestDetails = {
     'hostname': hostname,
@@ -143,7 +144,6 @@ helpers.sendRequest = function (protocol, port, hostname, method, path, contentT
         callback(true)
       }
     })
-
   })
 
   req.setHeader('Authorization', auth)

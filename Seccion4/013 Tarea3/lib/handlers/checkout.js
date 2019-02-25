@@ -60,11 +60,13 @@ checkoutHandler._checkout.post = function (data, callback){
                     orderData.payed = true
                   }
 
+                  var htmlBody = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>OrdenPagada</title></head><body><h3>Dear user <span style="color:tomato;">${userIdentifier}</span></h3><p style="color:teal;" >The order with a total amout of $ <span style="color:red;">${orderData.totalPrice.toFixed(2)}</span> was made by yourself.</p></body></html>`
+
                   var emailRequestObject = {
                     'from'   : 'Furio Zamudio <info@'+config.mailgun.domain+'>',
                     'to'     :  config.personalInfo.email ,      /* 'engel_zamudio@icloud.com', */ // <- Your email account  config.email
                     'subject': 'Order No [' + orderData.id +']',
-                    'text'   : 'Dear user ('+ userIdentifier +'), the order with a total amout of $' + orderData.totalPrice + ' was made by yourself.'
+                    'html'   : htmlBody /* 'Dear user ('+ userIdentifier +'), the order with a total amout of $' + orderData.totalPrice + ' was made by yourself.' */
                   }
 
                   genericHelper.sendRequest('https', '443', 'api.mailgun.net', 'POST', '/v3/'+config.mailgun.domain+'/messages',
