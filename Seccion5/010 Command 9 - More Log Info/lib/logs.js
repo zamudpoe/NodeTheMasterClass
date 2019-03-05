@@ -108,43 +108,32 @@ lib.compress = function (logId, newFileId, callback){
 };
 
 // Decompress the contents of a .gz file into a string variable
-lib.decompress = function(fileId,callback){
-  var fileName = fileId+'.gz.b64';
-  fs.readFile(lib.baseDir+fileName, 'utf8', function(err,str){
-    if(!err && str){
+lib.decompress = function (fileId, callback) {
+  var fileName = fileId+'.gz.b64'
+  fs.readFile(lib.baseDir+fileName, 'utf8', function (err, str) {
+    if (!err && str) {
       // Inflate the data
-      var inputBuffer = Buffer.from(str, 'base64');
-      zlib.unzip(inputBuffer,function(err,outputBuffer){
-        if(!err && outputBuffer){
+      var inputBuffer = Buffer.from(str, 'base64')
+      zlib.unzip(inputBuffer, function (err, outputBuffer) {
+        if (!err && outputBuffer){
           // Callback
-          var str = outputBuffer.toString();
-          callback(false,str);
+          var str = outputBuffer.toString()
+          callback(false, str)
         } else {
-          callback(err);
+          callback(err)
         }
-      });
-    } else {
-      callback(err);
-    }
-  });
-};
-
-// Truncate a log file
-lib.truncate = function(logId, callback) {
-
-  // get the file descriptor of the file to be truncated
-  const fd = fs.openSync(lib.baseDir+logId+'.log', 'r+');
-
-  fs.ftruncate(fd, 0,  (err) => {
-    /* assert.ifError(err) */
-
-    if (!err) {
-      callback(false)
+      })
     } else {
       callback(err)
     }
-
   })
+}
+
+// Truncate a log file
+lib.truncate = function(logId, callback) {
+  // get the file descriptor of the file to be truncated
+  const fd = fs.openSync(lib.baseDir+logId+'.log', 'r+')
+  fs.ftruncate(fd, 0,  (err) => { !err ? callback(false) : callback(err) })
 }
 
 // Export the module

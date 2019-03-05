@@ -13,6 +13,8 @@ var os       = require('os')
 var v8       = require('v8')
 var _data    = require('./data')
 var _logs    = require('./logs')
+var helpers  = require('./helpers')
+
 
 // Instantiate the cli module object
 var cli      = {}
@@ -326,7 +328,7 @@ cli.responders.moreCheckInfo = function (str) {
   console.log("You asked for more check info", str)
 
   var arrStr  = str.split('--')
-  var checkId = typeof (arrStr[1]) == 'string' &&  arrStr[1].trim().length > 0 ? arrStr[1].trim() : ''
+  var checkId = typeof (arrStr[1]) == 'string' &&  arrStr[1].trim().length > 0 ? arrStr[1].trim() : false
 
   // Get the ID from the string variable
   if (checkId) {
@@ -378,15 +380,47 @@ cli.responders.listLogs = function () {
     }
   })
 
-
 }
 
 // More logs info
 cli.responders.moreLogInfo = function (str) {
-  console.log("You asked for more log info", str)
+  // Get the logFileName from the string variable
+  var arrStr      = str.split('--')
+  var logFileName = typeof (arrStr[1]) == 'string' &&  arrStr[1].trim().length > 0 ? arrStr[1].trim() : false
+  // Create a header for the stats
+  cli.horizontalLine()
+  cli.centered('\x1b[45m\x1b[5m[ MORE LOG INFO ]\x1b[0m')
+  cli.horizontalLine()
+  cli.verticalSpace(2)
+
+  // Get the logFileName from the string variable
+  if (logFileName) {
+
+    // Decompressed the log
+    _logs.decompress(logFileName, function(err, strData) {
+      if (!err && strData) {
+        /* console.table(strData) */
+        // split into lines
+        var arr = strData.split('\n')
+        arr.forEach((jsonString) => {
+          var logObject = helpers.parseJsonToObject(jsonString)
+          if (logObject && JSON.stringify(logObject) !== '{}') {
+            console.dir(logObject, { 'colors' : true })
+            cli.verticalSpace()
+          } else {
+            console.log('empty object')
+          }
+
+        })
+      } else { console.log(err) }
+    })
+
+  } else {
+    console.log('\nPlease provide an valid log id not an empty value\n')
+  }
 }
 
-// pirple
+// Pirple
 cli.responders.pirple =  () => {
   console.log("You asked for \x1b[45m\x1b[5mPirple\x1b[0m")
 }
