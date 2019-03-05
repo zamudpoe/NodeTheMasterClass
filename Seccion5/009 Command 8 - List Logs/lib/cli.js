@@ -82,8 +82,8 @@ cli.responders.help = function() {
     'more user info --{userId}'  : 'show details of a specific user',
     'list checks --up --down'    : 'Show a list of all actives checks in the system, including their state. The "--up" and The "--down" flags are both optional',
     'more check info --{checkId}': 'Show details of a specified check',
-    'list logs'                  : 'Show alist of all the log files available to be read compresed and uncompresed',
-    'more log info --{fileName}' : 'Show details of a specified file',
+    'list logs'                  : 'Show alist of all the log files available to be read (compressed only)',
+    'more log info --{fileName}' : 'Show details of a specified log file',
     'pirple'                     : '',
     'clear'                      : 'clear the screen'
   }
@@ -364,9 +364,17 @@ cli.responders.listLogs = function () {
   cli.centered('\x1b[45m\x1b[5m[ LIST LOGS ]\x1b[0m')
   cli.horizontalLine()
   cli.verticalSpace(2)
+
   _logs.list (true, (err, logFilesNames) => {
     if (!err && logFilesNames && logFilesNames.length > 0) {
-      console.dir(logFilesNames)
+      logFilesNames.forEach((logFileName) => {
+        if (logFileName.indexOf('-') > -1) { // Only the compressed lines
+          console.log(logFileName)
+        }
+      })
+      cli.verticalSpace(1)
+      // End wit anothe horizontal line
+      cli.horizontalLine()
     }
   })
 
