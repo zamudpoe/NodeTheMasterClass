@@ -7,7 +7,9 @@ var readline = require('readline')
 var util     = require('util')
 var debug    = util.debuglog('cli')
 var events   = require('events')
+
 class _events extends events {}
+
 var e        = new _events()
 
 var _data    = require('./data')
