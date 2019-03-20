@@ -80,8 +80,7 @@ cli.init = function () {
     if (str == 'pirple') {
       _interface.question('What do you think about the course of Pirple The node Js Master Class? ', (answer) => {
         console.log(`\nThank you for your valuable feedback: ${answer}\n`)
-
-        /* _interface.close() */
+        _interface.close()
       })
     }
 

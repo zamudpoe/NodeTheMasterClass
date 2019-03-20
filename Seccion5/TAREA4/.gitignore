@@ -1,0 +1,5 @@
+# Modulos de node.js
+node_modules
+# configuracion de ambiente privada para proteccion de tokens
+env.config.json
+

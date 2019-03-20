@@ -1,0 +1,61 @@
+<h1>Create Your Account</h1>
+<h2>Signup is easy and only takes a few seconds.</h2>
+
+<div class="formWrapper">
+  <form id="accountCreate" action="/api/users" method="POST">
+    <div class="formError"></div>
+    <div class="inputWrapper">
+      <!-- <div class="inputLabel">Full Name</div>
+      <input type="text" name="name" placeholder="John" /> -->
+      <label class="inputLabel" for="name">Full Name (4 to 40 characters):</label>
+      <input type="text" id="name" name="name" placeholder="Jhon Doe" required minlength="4" maxlength="40" size="42">
+    </div>
+
+    <div class="inputWrapper">
+      <!-- <div class="inputLabel">e-mail</div>
+      <input type="text" name="emailAddress" placeholder="e-mail" /> -->
+      <label class="inputLabel" for="email">email:</label>
+      <input type="email" id="email" name="emailAddress" placeholder="e-mail"   size="40" required>
+    </div>
+
+    <div class="inputWrapper">
+      <!-- <div class="inputLabel">Street Address</div> -->
+      <label class="inputLabel" for="email">Street Address</label>
+      <input type="text" name="streetAddress" placeholder="Street Address" />
+    </div>
+
+    <div class="inputWrapper">
+      <!-- <div class="inputLabel">Phone Number</div>
+      <input type="text" name="phone" placeholder="(415) 123-4567" /> -->
+      <!-- pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
+
+      <label class="inputLabel" for="phone">Enter your phone number:</label>
+      <input type="tel"  name="phone"  placeholder="(415) 123-4567" required>
+      <span class="note">Format: 123-456-7890</span>
+
+    </div>
+
+    <div class="inputWrapper">
+      <!-- <div class="inputLabel">Choose a Password</div>
+      <input type="password" name="password" placeholder="Make it a good one!" /> -->
+      <label for="pass" class="inputLabel" >Choose a Password (6 characters minimum):</label>
+      <input type="password" id="pass" name="password" minlength="6" placeholder="Make it a good one!" required>
+    </div>
+
+    <div class="inputWrapper">
+      <fieldset>
+        <legend>Do you agree to the terms and conditions?</legend>
+        <label for="tosAgreement" class="inputLabel" >Yes/no</label>
+        <input type="checkbox" id="tosAgreement" name="tosAgreement" checked>
+      </fieldset>
+      <!-- <div class="inputLabel">Do you agree to the terms and conditions?</div>
+      <input type="checkbox" name="tosAgreement" value="agree"> -->
+    </div>
+
+    <div class="inputWrapper ctaWrapper">
+      <!-- <button type="submit" class="cta green">Get Started</button> -->
+      <input type="submit" class="cta green" value="Get Started">
+      <!-- <input class="favorite styled" type="button" value="Add to favorites"> -->
+    </div>
+  </form>
+</div>
