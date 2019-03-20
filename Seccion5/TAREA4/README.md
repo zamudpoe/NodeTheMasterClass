@@ -1,6 +1,6 @@
-# Pirple Homework Assignment #3
+# Pirple Homework Assignment #4
 
-This is my public repo for the Pirple **Homework Assignment #3**
+This is my public repo for the Pirple **Homework Assignment #4**
 
 ---
 ## Steps to setup
