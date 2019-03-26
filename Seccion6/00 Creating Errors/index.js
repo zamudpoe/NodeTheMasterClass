@@ -4,12 +4,12 @@
  */
 
 // Dependencies
-var server = require('./lib/server');
+var server  = require('./lib/server');
 var workers = require('./lib/workers');
-var cli = require('./lib/cli');
+var cli     = require('./lib/cli');
 
 // Declare the app
-var app = {};
+var app     = {};
 
 // Init function
 app.init = function(){

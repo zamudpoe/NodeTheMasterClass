@@ -174,8 +174,7 @@ server.router = {
 
 // Init script
 server.init = function () {
-  console.log('\x1b[5m\x1b[33m%s\x1b[0m','\n\n\t\tSeccion 6 - USING THE DEBUGGER\n')
-
+  console.log('\x1b[5m\x1b[33m%s\x1b[0m','\n\n\t\t>>>>>>>>>>>>>>>>>>>>>>>>>>>> Seccion 6 - Adding API Unit Tests <<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
   // Start the HTTP server
   server.httpServer.listen(config.httpPort,function () {
     console.log('\x1b[36m%s\x1b[0m','The HTTP server is running on port '+config.httpPort)

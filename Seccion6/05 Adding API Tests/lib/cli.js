@@ -104,33 +104,32 @@ cli.responders.help = function(){
   cli.verticalSpace(1);
 
   // End with another horizontal line
-  cli.horizontalLine();
+  cli.horizontalLine()
 
-};
+}
 
 // Create a vertical space
 cli.verticalSpace = function(lines){
-  lines = typeof(lines) == 'number' && lines > 0 ? lines : 1;
+  lines = typeof(lines) == 'number' && lines > 0 ? lines : 1
   for (i = 0; i < lines; i++) {
-      console.log('');
+      console.log('')
   }
-};
+}
 
 // Create a horizontal line across the screen
 cli.horizontalLine = function(){
 
   // Get the available screen size
-  var width = process.stdout.columns;
+  var width = process.stdout.columns
 
   // Put in enough dashes to go across the screen
-  var line = '';
+  var line = ''
   for (i = 0; i < width; i++) {
-      line+='-';
+      line+='-'
   }
-  console.log(line);
+  console.log(line)
 
-
-};
+}
 
 // Create centered text on the screen
 cli.centered = function(str){
@@ -145,7 +144,7 @@ cli.centered = function(str){
   // Put in left padded spaces before the string itself
   var line = '';
   for (i = 0; i < leftPadding; i++) {
-      line+=' ';
+    line+=' ';
   }
   line+= str;
   console.log(line);
@@ -160,14 +159,14 @@ cli.responders.exit = function(){
 cli.responders.stats = function(){
   // Compile an object of stats
   var stats = {
-    'Load Average' : os.loadavg().join(' '),
-    'CPU Count' : os.cpus().length,
-    'Free Memory' : os.freemem(),
-    'Current Malloced Memory' : v8.getHeapStatistics().malloced_memory,
-    'Peak Malloced Memory' : v8.getHeapStatistics().peak_malloced_memory,
-    'Allocated Heap Used (%)' : Math.round((v8.getHeapStatistics().used_heap_size / v8.getHeapStatistics().total_heap_size) * 100),
-    'Available Heap Allocated (%)' : Math.round((v8.getHeapStatistics().total_heap_size / v8.getHeapStatistics().heap_size_limit) * 100),
-    'Uptime' : os.uptime()+' Seconds'
+    'Load Average'                : os.loadavg().join(' '),
+    'CPU Count'                   : os.cpus().length,
+    'Free Memory'                 : os.freemem(),
+    'Current Malloced Memory'     : v8.getHeapStatistics().malloced_memory,
+    'Peak Malloced Memory'        : v8.getHeapStatistics().peak_malloced_memory,
+    'Allocated Heap Used (%)'     : Math.round((v8.getHeapStatistics().used_heap_size / v8.getHeapStatistics().total_heap_size) * 100),
+    'Available Heap Allocated (%)': Math.round((v8.getHeapStatistics().total_heap_size / v8.getHeapStatistics().heap_size_limit) * 100),
+    'Uptime'                      : os.uptime()+' Seconds'
   };
 
   // Create a header for the stats
@@ -177,25 +176,27 @@ cli.responders.stats = function(){
   cli.verticalSpace(2);
 
   // Log out each stat
-  for(var key in stats){
-     if(stats.hasOwnProperty(key)){
-        var value = stats[key];
-        var line = '      \x1b[33m '+key+'      \x1b[0m';
-        var padding = 60 - line.length;
-        for (i = 0; i < padding; i++) {
-            line+=' ';
-        }
-        line+=value;
-        console.log(line);
-        cli.verticalSpace();
-     }
+  for (var key in stats) {
+    if (stats.hasOwnProperty(key)) {
+      var value   = stats[key]
+      var line    = '      \x1b[33m '+key+'      \x1b[0m'
+      var padding = 60 - line.length
+
+      for (i = 0; i < padding; i++) {
+          line+=' '
+      }
+
+      line+=value;
+      console.log(line)
+      cli.verticalSpace()
+    }
   }
 
   // Create a footer for the stats
-  cli.verticalSpace();
-  cli.horizontalLine();
+  cli.verticalSpace()
+  cli.horizontalLine()
 
-};
+}
 
 // List Users
 cli.responders.listUsers = function(){
@@ -371,10 +372,10 @@ cli.init = function(){
 
   // Start the interface
   var _interface = readline.createInterface({
-    input  : process.stdin,
-    output : process.stdout,
-    prompt : ''
-  })
+    input: process.stdin,
+    output: process.stdout,
+    prompt: ''
+  });
 
   // Create an initial prompt
   _interface.prompt();
@@ -396,5 +397,5 @@ cli.init = function(){
 
 };
 
-// Export the module
-module.exports = cli;
+ // Export the module
+ module.exports = cli;

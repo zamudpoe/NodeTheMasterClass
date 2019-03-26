@@ -1,18 +1,20 @@
 /*
  * Request Handlers
-*/
+ *
+ */
 
 // Dependencies
-var _data   = require('./data');
+var _data = require('./data');
 var helpers = require('./helpers');
-var config  = require('./config');
+var config = require('./config');
 
 // Define all the handlers
 var handlers = {};
 
 /*
  * HTML Handlers
-*/
+ *
+ */
 
 // Index
 handlers.index = function(data,callback){
@@ -20,9 +22,9 @@ handlers.index = function(data,callback){
   if(data.method == 'get'){
     // Prepare data for interpolation
     var templateData = {
-      'head.title'      : 'Uptime Monitoring - Made Simple',
-      'head.description': 'We offer free, simple uptime monitoring for HTTP/HTTPS sites all kinds. When your site goes down, we\'ll send you a text to let you know',
-      'body.class'      : 'index'
+      'head.title' : 'Uptime Monitoring - Made Simple',
+      'head.description' : 'We offer free, simple uptime monitoring for HTTP/HTTPS sites all kinds. When your site goes down, we\'ll send you a text to let you know',
+      'body.class' : 'index'
     };
 
     // Read in a template as a string
@@ -52,9 +54,9 @@ handlers.accountCreate = function(data,callback){
   if(data.method == 'get'){
     // Prepare data for interpolation
     var templateData = {
-      'head.title'      : 'Create an Account',
-      'head.description': 'Signup is easy and only takes a few seconds.',
-      'body.class'      : 'accountCreate'
+      'head.title' : 'Create an Account',
+      'head.description' : 'Signup is easy and only takes a few seconds.',
+      'body.class' : 'accountCreate'
     };
     // Read in a template as a string
     helpers.getTemplate('accountCreate',templateData,function(err,str){
@@ -83,9 +85,9 @@ handlers.sessionCreate = function(data,callback){
   if(data.method == 'get'){
     // Prepare data for interpolation
     var templateData = {
-      'head.title'      : 'Login to your account.',
-      'head.description': 'Please enter your phone number and password to access your account.',
-      'body.class'      : 'sessionCreate'
+      'head.title' : 'Login to your account.',
+      'head.description' : 'Please enter your phone number and password to access your account.',
+      'body.class' : 'sessionCreate'
     };
     // Read in a template as a string
     helpers.getTemplate('sessionCreate',templateData,function(err,str){
@@ -355,16 +357,17 @@ handlers.public = function(data,callback){
 
 /*
  * JSON API Handlers
-*/
+ *
+ */
 
 // Ping
 handlers.ping = function (data, callback) {
-  callback (200)
+    callback(200)
 }
 
 // Error example (this is why we're wrapping the handler caller in a try catch)
 handlers.exampleError = function (data, callback) {
-  var err = new Error('💢 This is an example  Error💢')
+  var err = new Error('This is an example error.')
   throw (err)
 }
 
