@@ -1,43 +1,69 @@
 /*
-**  Test Runner
+** Primary file
 */
 
-var helpers = require('../lib/helpers')
-var assert = require('assert')
+// Dependencies
+var appHelpers = require('../app/lib')
+var assert     = require('assert')
 
-
-/** Application Logic for the test runner */
-_app = {}
-
+// Application logic for the test runner.
+var _app       = {}
 
 /** Container for the tests */
 _app.tests = {
   'unit' : {}
 }
 
+/* itIsAPalindrome should return true */
+_app.tests.unit['appHelpers.itIsAPalindrome should return true'] =  (done) => {
+  var val = appHelpers.itIsAPalindrome('seres')
+  assert.equal(val, true)
+  done()
+}
+
+/** Assert that the itIsAPalindrome is returning true if is a leap year! */
+_app.tests.unit['appHelpers.itIsbisiesto should return boolean'] =  (done) => {
+  var val = appHelpers.itIsbisiesto(2016)
+  assert.equal(typeof (val), 'boolean')
+  done()
+}
+
+/** Assert that the itIsAPalindrome is returning true if is a leap year! */
+_app.tests.unit['appHelpers.itIsbisiesto should return true'] =  (done) => {
+  var val = appHelpers.itIsbisiesto(2016)
+  assert.equal(val, true)
+  done()
+}
+
 /** Assert that the getANumber is returning a number */
-_app.tests.unit['helpers.getANumber should return a number'] = function (done) {
-  var val = helpers.getANumber()
+_app.tests.unit['helpers.getANumber should return a number'] =  (done) => {
+  var val = appHelpers.getANumber()
   assert.equal(typeof (val), 'number')
   done()
 }
 
 /** Assert that the getANumber is returning a 1 */
-_app.tests.unit['helpers.getANumber should return 1'] = function (done) {
-  var val = helpers.getANumber()
+_app.tests.unit['helpers.getANumber should return 1'] =  (done) => {
+  var val = appHelpers.getANumber()
   assert.equal(val, 1)
   done()
 }
 
-/** Assert that the getANumber is returning a 2 */
-_app.tests.unit['helpers.getANumber should return 2'] = function (done) {
-  var val = helpers.getANumber()
+/** Assert that the getANumber is returning a 1 */
+/* _app.tests.unit['helpers.getANumber should return 2'] =  (done) => {
+  var val = appHelpers.getANumber()
   assert.equal(val, 2)
+  done()
+} */
+
+_app.tests.unit['helpers.getSign should return string'] =  (done) => {
+  var val = appHelpers.getSign(24, 01)
+  assert.equal(typeof (val), 'string')
   done()
 }
 
 // Count all the tests
-_app.countTests = function () {
+_app.countTests =  () =>  {
   var counter = 0
 
   for (var key in _app.tests) {
@@ -52,6 +78,7 @@ _app.countTests = function () {
 
     }
   }
+
   return counter
 }
 
@@ -115,20 +142,18 @@ _app.runTests = function () {
 _app.produceTestReport = function (limit, successes, errors) {
   /* console.log(limit, successes, errors) */
   console.log('\n\x1b[35m----------------------------------[ \x1b[36m\x1b[5mBEGIN TEST REPORT \x1b[0m\x1b[35m]----------------------------------\x1b[0m\n')
-
   console.log('\x1b[36mTotal Tests : \x1b[33m%s\x1b[0m', limit)
   console.log('\x1b[36mPass        : \x1b[33m%s\x1b[0m', successes)
   console.log('\x1b[36mFail        : \x1b[33m%s\x1b[0m', errors.length)
   /* console.log('\x1b[36m\n\tDetail Error Info : %o\x1b[0m\n', errors) */
 
-
   /*
   if ( errors[0].error.generatedMessage ) {
     console.log('\n\x1b[36m\tgeneratedMessage  : \x1b[31m%s\x1b[0m', errors[0].error.generatedMessage)
     console.log('\x1b[36m\n\tDescription Error : \x1b[31m%s\x1b[0m', errors[0].name)
-    console.log('\x1b[36m\tAssertionError    : \x1b[31m%s\x1b[0m', errors[0].error)
-    console.log('\x1b[36m\tStack Info        : \x1b[31m%o\x1b[0m', errors[0].error['stack'])
-    console.log('\x1b[36m\tMessage Info      : \x1b[31m%s\x1b[0m', errors[0].error['message'])
+    console.log('\x1b[36m\tAssertionError      : \x1b[31m%s\x1b[0m', errors[0].error)
+    console.log('\x1b[36m\tStack Info          : \x1b[31m%o\x1b[0m', errors[0].error['stack'])
+    console.log('\x1b[36m\tMessage Info        : \x1b[31m%s\x1b[0m', errors[0].error['message'])
   }
   */
 
@@ -147,5 +172,3 @@ _app.produceTestReport = function (limit, successes, errors) {
 
 /** Run the test */
 _app.runTests()
-
-
