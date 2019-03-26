@@ -50,11 +50,11 @@ _app.tests.unit['helpers.getANumber should return 1'] =  (done) => {
 }
 
 /** Assert that the getANumber is returning a 1 */
-/* _app.tests.unit['helpers.getANumber should return 2'] =  (done) => {
+_app.tests.unit['helpers.getANumber should return 2'] =  (done) => {
   var val = appHelpers.getANumber()
   assert.equal(val, 2)
   done()
-} */
+}
 
 _app.tests.unit['helpers.getSign should return string'] =  (done) => {
   var val = appHelpers.getSign(24, 01)
