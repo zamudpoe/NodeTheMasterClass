@@ -175,7 +175,7 @@ server.router = {
 // Init script
 server.init = function () {
   console.log('\x1Bc')
-  console.log('\x1b[5m\x1b[33m%s\x1b[0m','\n\n\t\t>>>>>>>>>>>>>>>>>>>>>>>>>>>> Seccion 7 - Refactoring For Performance <<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
+  console.log('\x1b[33m\x1b[0m\n\n\t\t>>>>>>>>>>>>>>>>>>>>>>>>>>>>\x1b[33m\x1b[5mSeccion 7 - 01 Using Performance Hook \x1b[33m\x1b[0m<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\x1b[0m\n')
 
   // Start the HTTP server
   server.httpServer.listen(config.httpPort,function () {

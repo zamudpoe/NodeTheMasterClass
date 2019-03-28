@@ -1,26 +1,32 @@
 /*
  * Request Handlers
- *
- */
+*/
 
 // Dependencies
-var _data   = require('./data')
-var helpers = require('./helpers')
-var config  = require('./config')
-var _url    = require('url')
-var dns     = require('dns') //
+var _data        = require('./data')
+var helpers      = require('./helpers')
+var config       = require('./config')
+var _url         = require('url')
+var dns          = require('dns') //
+
+/* const { performance, PerformanceObserver} = require('perf_hooks') */
+
+var _performance        = require('perf_hooks').performance
+var PerformanceObserver = require('perf_hooks').PerformanceObserver
+
+var util         = require('util')
+var debuglog     = util.debuglog('performance')
 
 
 // Define all the handlers
-var handlers = {};
+var handlers     = {};
 
 /*
  * HTML Handlers
- *
- */
+*/
 
 // Index
-handlers.index = function(data,callback){
+handlers.index = function(data, callback) {
   // Reject any request that isn't a GET
   if(data.method == 'get'){
     // Prepare data for interpolation
@@ -614,44 +620,82 @@ handlers._tokens  = {};
 // Tokens - post
 // Required data: phone, password
 // Optional data: none
-handlers._tokens.post = function(data,callback){
-  var phone = typeof(data.payload.phone) == 'string' && data.payload.phone.trim().length == 10 ? data.payload.phone.trim() : false;
+handlers._tokens.post = function(data, callback) {
+  _performance.mark('entered function')
+  var phone    = typeof(data.payload.phone) == 'string' && data.payload.phone.trim().length == 10 ? data.payload.phone.trim() : false;
   var password = typeof(data.payload.password) == 'string' && data.payload.password.trim().length > 0 ? data.payload.password.trim() : false;
-  if(phone && password){
+  _performance.mark('inputs validated')
+  if (phone && password) {
+    _performance.mark('Beginning user lookup')
     // Lookup the user who matches that phone number
-    _data.read('users',phone,function(err,userData){
-      if(!err && userData){
+    _data.read('users', phone, function(err, userData) {
+      _performance.mark('User lookup complete 👍🏻')
+      if (!err && userData) {
         // Hash the sent password, and compare it to the password stored in the user object
-        var hashedPassword = helpers.hash(password);
-        if(hashedPassword == userData.hashedPassword){
+        _performance.mark('Beginning password hashing')
+        var hashedPassword = helpers.hash(password)
+        _performance.mark('Password hashing Complete')
+        if (hashedPassword == userData.hashedPassword) {
+          _performance.mark('Creating data for the token')
           // If valid, create a new token with a random name. Set an expiration date 1 hour in the future.
-          var tokenId = helpers.createRandomString(20);
-          var expires = Date.now() + 1000 * 60 * 60;
+          var tokenId     = helpers.createRandomString(20)
+          var expires     = Date.now() + 1000 * 60 * 60
           var tokenObject = {
-            'phone' : phone,
-            'id' : tokenId,
-            'expires' : expires
-          };
+            'phone'  : phone,
+            'id'     : tokenId,
+            'expires': expires
+          }
 
           // Store the token
+          _performance.mark('Beginning storing token')
           _data.create('tokens',tokenId,tokenObject,function(err){
-            if(!err){
-              callback(200,tokenObject);
+            _performance.mark('Storing token complete')
+
+            // Gather all the measurements
+            _performance.measure('Beginning to end', 'entered function', 'Storing token complete')
+            _performance.measure('Validating user input', 'entered function' ,'inputs validated')
+            _performance.measure('User Lookup','Beginning user lookup','User lookup complete 👍🏻')
+            _performance.measure('Password hashing','Beginning password hashing','Password hashing Complete')
+            _performance.measure('Token Data Creation','Creating data for the token','Beginning storing token')
+            _performance.measure('Token Storing','Beginning storing token','Storing token complete')
+
+            // Log out all the measurements
+
+            /*
+              NOTE: This is wrong way.
+
+                var measurements = _performance.getEntriesByType('measure')
+                measurements.forEach(function (measurement) {
+                  debuglog('\x1b[33m%s : \x1b[36m%s\x1b[0m', measurement.name, measurement.duration)
+                })
+            */
+
+            // Log out all the measurements
+            const obs = new PerformanceObserver((measurements) => {
+              measurements.getEntries().forEach((measurement) => {
+                    debuglog('\x1b[33m%s : \x1b[36m\x1b[5m%s\x1b[0m', measurement.name, measurement.duration)
+                })
+            })
+            obs.observe({entryTypes: ['measure']})
+
+            if (!err) {
+              callback(200,tokenObject)
             } else {
-              callback(500,{'Error' : 'Could not create the new token'});
+              callback(500,{'Error' : 'Could not create the new token'})
             }
-          });
+          })
         } else {
-          callback(400,{'Error' : 'Password did not match the specified user\'s stored password'});
+          callback(400,{'Error' : 'Password did not match the specified user\'s stored password'})
         }
       } else {
-        callback(400,{'Error' : 'Could not find the specified user.'});
+        callback(400,{'Error' : 'Could not find the specified user.'})
       }
-    });
+    })
+
   } else {
     callback(400,{'Error' : 'Missing required field(s).'})
   }
-};
+}
 
 // Tokens - get
 // Required data: id
