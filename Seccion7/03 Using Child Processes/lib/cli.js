@@ -4,20 +4,23 @@
  */
 
 // Dependencies
-var readline = require('readline');
-var util     = require('util');
-var debug    = util.debuglog('cli');
-var events   = require('events');
+var readline     = require('readline');
+var util         = require('util');
+var debug        = util.debuglog('cli');
+var events       = require('events');
 class _events extends events{};
-var e        = new _events();
-var os       = require('os');
-var v8       = require('v8');
-var _data    = require('./data');
-var _logs    = require('./logs');
-var helpers  = require('./helpers');
+var e            = new _events();
+var os           = require('os');
+var v8           = require('v8');
+var _data        = require('./data');
+var _logs        = require('./logs');
+var helpers      = require('./helpers');
+
+var childProcess = require('child_process')
+
 
 // Instantiate the cli module object
-var cli = {};
+var cli      = {};
 
 // Input handlers
 e.on('man',function(str){
@@ -287,19 +290,27 @@ cli.responders.moreCheckInfo = function(str){
 };
 
 // List Logs
-cli.responders.listLogs = function(){
-  _logs.list(true,function(err,logFileNames){
-    if(!err && logFileNames && logFileNames.length > 0){
-      cli.verticalSpace();
-      logFileNames.forEach(function(logFileName){
-        if(logFileName.indexOf('-') > -1){
-          console.log(logFileName);
-          cli.verticalSpace();
-        }
-      });
-    }
-  });
-};
+cli.responders.listLogs = function () {
+  var ls = childProcess.spawn('ls', ['./.logs/'])
+
+  ls.stdout.on('data', function (dataObj) {
+    // explode into separate lines
+    var dataStr      = dataObj.toString()
+    var logFileNames = dataStr.split('\n')
+
+    cli.verticalSpace()
+    logFileNames.forEach(function (logFileName) {
+      if (typeof(logFileName) == 'string' && logFileName.length > 0 && logFileName.indexOf('-') > -1) {
+        /* console.log(logFileName) */
+        console.log(logFileName.trim().split('.')[0])
+        cli.verticalSpace()
+      }
+    })
+
+  })
+}
+
+
 
 // More logs info
 cli.responders.moreLogInfo = function(str){
