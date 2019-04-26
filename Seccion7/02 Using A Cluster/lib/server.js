@@ -178,12 +178,12 @@ server.init = function () {
   console.log('\x1b[33m\x1b[0m\n\n\t\t>>>>>>>>>>>>>>>>>>>>>>>>>>>>\x1b[33m\x1b[5mSeccion 7 - 02 Using A Cluster\x1b[33m\x1b[0m<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\x1b[0m\n')
 
   // Start the HTTP server
-  server.httpServer.listen(config.httpPort,function () {
+  server.httpServer.listen(config.httpPort, function () {
     console.log('\t\x1b[36m%s\x1b[0m', 'The HTTP server is running on port '+config.httpPort)
   })
 
   // Start the HTTPS server
-  server.httpsServer.listen(config.httpsPort,function () {
+  server.httpsServer.listen(config.httpsPort, function () {
     console.log('\t\x1b[36m%s\x1b[0m', 'The HTTPS server is running on port '+config.httpsPort)
   })
 
