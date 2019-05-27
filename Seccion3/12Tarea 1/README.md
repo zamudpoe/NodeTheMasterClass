@@ -16,14 +16,22 @@ Please create a simple "**_Hello World_**" API. Meaning:
 1. It should be a **_RESTful JSON API_** that listens on a port of your choice.
 1. When someone posts anything to the route _/hello_, you should return a welcome message, in **_JSON format_**. This message can be anything you want.
 
+---
 ## How To Check the HomeWork
 
 1. In the console write: ``node index.js``
 1. Use the browser of your preference or the Postman app or Curl command to do a GET to the following url http://localhost:3000/hello or https://localhost:3001/hello and see what happen in your console.
 
+## Video Component
+>**NOTE :** Here is the [Video Component] and you can see how its works this app!
 
->**Note 1:** The jokes came from here :  [JokesUrl] I just made it a little format to them. I Hope You Enjoy it!
+## Video Component Of The Code
+> **Note :** Here is the **->** [Video Component Of The Code]
 
->**Note 2:** What's happen if you try a difference route?...mmmm 🤔
+>**Info:** The jokes came from here :  [JokesUrl] I just made it a little format to them. I Hope You Enjoy it!
+
+> What's happen if you try a difference route?...mmmm 🤔
 
 [JokesUrl]:https://www.quickfunnyjokes.com/funnythoughts.html
+[Video Component]:(http://recordit.co/lHPeVRq9Gn)
+[Video Component Of The Code]:(http://recordit.co/mb4H7Ns1KQ)

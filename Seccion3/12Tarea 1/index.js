@@ -4,19 +4,19 @@
 */
 
 // Dependencies
-const fs          = require('fs')
-const http        = require('http')
-const https       = require('https')
-var url           = require('url')
-var StringDecoder = require('string_decoder').StringDecoder
-var mathLib       = require('./lib/math')
-var jokeLib       = require('./lib/joke')
+const fs          = require('fs')                             // The FS library
+const http        = require('http')                           // The HTTP Module
+const https       = require('https')                          // The HTTPS Module
+var url           = require('url')                            // The URL Module
+var StringDecoder = require('string_decoder').StringDecoder   // StringDecoder module
+var mathLib       = require('./lib/math')                     // Our math library
+var jokeLib       = require('./lib/joke')                     // Our Jokes Library
 
 var app = {}
 
 app.config = {
   title            : "The Joke App",
-  'timeBetweenJoke': 2000
+  'timeBetweenJoke': 3000
 }
 
 app.printAllTheJokes = function () {
@@ -34,6 +34,7 @@ app.indefiniteLoop = function () {
   setInterval(app.printAllTheJokes, app.config.timeBetweenJoke)
 }
 
+// setup the configuration options (like the http or http port)
 const config      = require('./config')
 
 // Instantiate the HTTP server
@@ -52,6 +53,7 @@ const httpsServerOptions = {
   'cert': fs.readFileSync('./https/cert.pem')
 }
 
+// Instantiate the HTTPS server
 const httpsServer = https.createServer(httpsServerOptions, function (req, res) {
   unifiedServer(req, res)
 })
@@ -61,7 +63,7 @@ httpsServer.listen(config.httpsPort, function () {
   console.log("\n\tThe HTTPS server is listening on port [ " + config.httpsPort + " ] in " + config.envName + " mode")
 })
 
-// All the server logic for both the http and https server
+// All the server logic for both the HTTP and HTTPS server
 var unifiedServer = function (req, res) {
 
   // Get the URL and parse it
@@ -79,7 +81,7 @@ var unifiedServer = function (req, res) {
   var decoder = new StringDecoder('utf-8')
   var buffer = '' // payload content
 
-  req.on('data', function(data) {
+  req.on('data', function (data) {
     buffer += decoder.write(data)
   })
 
@@ -97,7 +99,7 @@ var unifiedServer = function (req, res) {
       'method'           : method,
       'headers'          : headers,
       'payload'          : buffer
-    };
+    }
 
     // Route the request to the handler specified in the router
     chosenHandler(data, function (statusCode, payload) {
@@ -126,7 +128,7 @@ var unifiedServer = function (req, res) {
 // Define the routing handlers
 var handlers = {}
 
-// Ping handler
+// Hello handler
 handlers.hello = function (data, callback) {
   callback (200, {"HELLO": "What's Up Doc?, mmmm ...let me tell You a few jokes, check your console.. "})
   app.indefiniteLoop()
@@ -138,7 +140,7 @@ handlers.notFound = function (data, callback) {
   app.indefiniteLoop()
 }
 
-// Define a request router
+// We define only one request router
 const router = {
   'hello': handlers.hello
 }
