@@ -122,8 +122,9 @@ server.router = {
 // Init script
 server.init = function () {
   console.clear()
+
   // Start the HTTP server
-  server.httpServer.listen(config.httpPort, function() {
+  server.httpServer.listen(config.httpPort, function () {
     console.log('\x1b[36m%s\x1b[0m',"The server ["+config.envName+"] is ready and listening on Port ["+config.httpPort + "]")
   })
 

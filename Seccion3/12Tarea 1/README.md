@@ -33,5 +33,5 @@ Please create a simple "**_Hello World_**" API. Meaning:
 > What's happen if you try a difference route?...mmmm 🤔
 
 [JokesUrl]:https://www.quickfunnyjokes.com/funnythoughts.html
-[Video Component]:(http://recordit.co/lHPeVRq9Gn)
-[Video Component Of The Code]:(http://recordit.co/mb4H7Ns1KQ)
+[Video Component]:http://recordit.co/lHPeVRq9Gn
+[Video Component Of The Code]:http://recordit.co/mb4H7Ns1KQ

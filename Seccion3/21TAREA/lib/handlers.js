@@ -305,8 +305,8 @@ handlers.TokenExistente  = []
 /*
   http://localhost:5000/tokens
   {
-  	"phone"   : "2281944928",
-  	"password": "TooManySecrets"
+    "phone"   : "2281944928",
+    "password": "TooManySecrets"
   }
 
   OJO:
@@ -323,7 +323,6 @@ handlers.TokenExistente  = []
       "activo": true
     }
 */
-
 
 handlers._tokens.post = function (data, callback) {
   var phone           = typeof(data.payload.phone) == 'string' && data.payload.phone.trim().length == 10 ? data.payload.phone.trim() : false
@@ -450,12 +449,12 @@ handlers._tokens.put = function (data, callback) {
             } else {
               callback(500, {'Error' : 'No ha sido posible Actualizar el Token [ ' + id + ' ]' });
             }
-          });
+          })
         }
       } else {
         callback(400, {'Error' : 'Token especificado no existe.'});
       }
-    });
+    })
   } else {
     callback(400, {"Error": "Campo(s) Invalido(s) Id del Token faltante ó se ha pasado falso para el Extend"});
   }
