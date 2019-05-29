@@ -50,7 +50,7 @@ userHandler._users.post = function (data, callback) {
       // Let's create the variable that defines our unique id for user.
       var userIdentifier = genericHelper.hash(emailAddress)
 
-/*       console.log(emailAddress) */
+      /* console.log(emailAddress) */
 
       if (userIdentifier) {
         // Make sure that the user doesnt already exist

@@ -107,7 +107,7 @@ server.unifiedServer = function (req, res) {
   })
 }
 
-// Define a request router
+// Define the requests router
 server.router = {
   'users'        : userHandler.users,
   'login'        : accountHandler.login,
@@ -117,7 +117,6 @@ server.router = {
   'order'        : orderHandler.order,
   'checkout'     : checkoutHandler.checkout
 }
-
 
 // Init script
 server.init = function () {

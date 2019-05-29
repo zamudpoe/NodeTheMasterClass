@@ -25,7 +25,7 @@ accountHandler._login  = {}
 accountHandler._logout = {}
 
 // Login - post
-// Required data: emailAddress, streetAddress
+// Required data: emailAddress, password
 // Optional data: none
 accountHandler._login.post = function (data, callback) {
   // Check that all required felds are filled out
