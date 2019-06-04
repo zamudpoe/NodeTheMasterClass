@@ -1,0 +1,2 @@
+En una terminal ejecutamos:
+
